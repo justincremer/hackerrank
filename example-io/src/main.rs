@@ -1,24 +1,23 @@
 use std::io;
 use std::io::prelude::*;
 
+macro_rules! parse {
+    ($x:expr) => {
+        $x.unwrap().trim().parse().unwrap()
+    };
+}
+
 fn main() {
-    let reader = io::stdin();
-    let mut lines = reader.lock().lines();
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
 
-    macro_rules! parse {
-        ($x:expr) => {
-            $x.unwrap().trim().parse().unwrap()
-        };
-    }
-
-    let n = parse!(lines.next().unwrap());
-    for line in lines.take(n) {
-        println!("{}", run(parse!(line)));
+    while let Some(s) = lines.next() {
+        println!("{}", run(parse!(s)));
     }
 }
 
-fn run(_: i32) -> &'static str {
-    "test"
+fn run(_: usize) -> usize {
+    0
 }
 
 #[cfg(test)]
@@ -27,6 +26,6 @@ mod tests {
 
     #[test]
     fn it_works() {
-        assert_eq!("test", run(0));
+        assert_eq!(0, run(0));
     }
 }
